@@ -59,7 +59,7 @@ async def modify(_, msg: Message):
                 )
             else:
                 await msg.edit_text(
-                    caption = msg.caption.markdown.replace(REMOVE_WORD , ""),
+                    caption,
                     disable_web_page_preview=disable_webpage_preview,
                     parse_mode="markdown"
                 )
