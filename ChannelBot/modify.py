@@ -1,4 +1,5 @@
 import asyncio
+new_caption = msg.text.markdown.replace(REMOVE_WORD , "")
 from Config import REMOVE_WORD
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup
@@ -38,14 +39,14 @@ async def modify(_, msg: Message):
             webpage_preview = await get_webpage_preview(channel_id)
             if position == 'above':
                 if msg.caption:
-                    caption += '\n\n' + msg.caption.markdown.replace(REMOVE_WORD , "")
+                    caption = caption + '\n\n' + new_caption
                 elif msg.text:
-                    caption += '\n\n' + msg.text.markdown.replace(REMOVE_WORD , "")
+                    caption = caption + '\n\n' + new_caption
             elif position == 'below':
                 if msg.caption:
-                    caption = msg.caption.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
+                    caption = new_caption + '\n\n' + caption
                 elif msg.text:
-                    caption = msg.text.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
+                    caption = new_caption + '\n\n' + caption
             if webpage_preview:
                 disable_webpage_preview = False
             else:
