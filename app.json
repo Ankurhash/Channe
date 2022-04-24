@@ -35,22 +35,22 @@
     "API_ID": {
       "description": "Get this value from my.telegram.org.",
       "required": true,
-      "value": ""
+      "value": "17897637"
     },
     "REMOVE_WORD": {
       "description": "Fill which u want to remove from caption if not remove anything fill unique whivh not preset in caotion",
       "required": true,
-      "value": ""
+      "value": "@TRmoviesandseries"
     },
     "API_HASH": {
       "description": "Get this value from my.telegram.org.",
       "required": true,
-      "value": ""
+      "value": "917370c7744d06dc844d4ea4751808ff"
     },
     "BOT_TOKEN": {
       "description": "Obtain a Telegram bot token by contacting @BotFather",
       "required": true,
-      "value": ""
+      "value": "5311981064:AAGh1g11zgTclTURjB8ZdfqDFi5QTEvQ2EE"
     },
     "MUST_JOIN": {
       "description": "Add username/id of a channel/group",
