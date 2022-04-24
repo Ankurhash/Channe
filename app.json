@@ -37,6 +37,11 @@
       "required": true,
       "value": ""
     },
+    "REMOVE_WORD": {
+      "description": "Fill which u want to remove from caption if not remove anything fill unique whivh not preset in caotion",
+      "required": true,
+      "value": ""
+    },
     "API_HASH": {
       "description": "Get this value from my.telegram.org.",
       "required": true,
