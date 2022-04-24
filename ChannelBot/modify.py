@@ -38,9 +38,9 @@ async def modify(_, msg: Message):
             webpage_preview = await get_webpage_preview(channel_id)
             if position == 'above':
                 if msg.caption:
-                    caption = caption + '\n\n' + (msg.caption.markdown).replace(@TRmoviesandseries , "")
+                    caption = caption + '\n\n' + (msg.caption.markdown).replace("@TRmoviesandseries" , "")
                 elif msg.text:
-                    caption = caption + '\n\n' + (msg.text.markdown).replace(@TRmoviesandseries , "")
+                    caption = caption + '\n\n' + (msg.text.markdown).replace("@TRmoviesandseries" , "")
             elif position == 'below':
                 if msg.caption:
                     caption = (msg.caption.markdown).replace(REMOVE_WORD , "") + '\n\n' + caption
