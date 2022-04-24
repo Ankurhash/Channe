@@ -1,5 +1,4 @@
 import asyncio
-new_caption = msg.text.markdown.replace(REMOVE_WORD , "")
 from Config import REMOVE_WORD
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup
@@ -39,14 +38,14 @@ async def modify(_, msg: Message):
             webpage_preview = await get_webpage_preview(channel_id)
             if position == 'above':
                 if msg.caption:
-                    caption = caption + '\n\n' + new_caption
+                    caption = caption + '\n\n' + (msg.caption.markdown).replace(REMOVE_WORD , "")
                 elif msg.text:
-                    caption = caption + '\n\n' + new_caption
+                    caption = caption + '\n\n' + (msg.text.markdown).replace(REMOVE_WORD , "")
             elif position == 'below':
                 if msg.caption:
-                    caption = new_caption + '\n\n' + caption
+                    caption = (msg.caption.markdown).replace(REMOVE_WORD , "") + '\n\n' + caption
                 elif msg.text:
-                    caption = new_caption + '\n\n' + caption
+                    caption = (msg.text.markdown).replace(REMOVE_WORD , "") + '\n\n' + caption
             if webpage_preview:
                 disable_webpage_preview = False
             else:
@@ -91,14 +90,12 @@ async def modify(_, msg: Message):
                     disable_web_page_preview=disable_webpage_preview,
                     parse_mode="markdown"
                 )
-                
             else:
                 await msg.edit_text(
                     caption,
                     disable_web_page_preview=disable_webpage_preview,
                     parse_mode="markdown"
                 )
-                
         if sticker:
             await msg.reply_sticker(sticker, quote=False)
     except FloodWait as e:
