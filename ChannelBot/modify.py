@@ -1,4 +1,5 @@
 import asyncio
+from Config import REMOVE_WORD
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup
 from pyrogram.errors.exceptions import FloodWait
@@ -29,7 +30,40 @@ async def modify(_, msg: Message):
     if edit_mode == 'media' and not msg.media:
         return
     try:
-        if caption:
+        if REMOVE_WORD in caption:
+            position = await get_position(channel_id)
+            buttons = await get_buttons(channel_id)
+            if buttons:
+                buttons = await string_to_buttons(buttons)
+            webpage_preview = await get_webpage_preview(channel_id)
+            if position == 'above':
+                if msg.caption:
+                    caption += '\n\n' + msg.caption.markdown.replace(REMOVE_WORD , "")
+                elif msg.text:
+                    caption += '\n\n' + msg.text.markdown.replace(REMOVE_WORD , "")
+            elif position == 'below':
+                if msg.caption:
+                    caption = msg.caption.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
+                elif msg.text:
+                    caption = msg.text.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
+            if webpage_preview:
+                disable_webpage_preview = False
+            else:
+                disable_webpage_preview = True
+            if buttons:
+                await msg.edit_text(
+                    caption,
+                    reply_markup=InlineKeyboardMarkup(buttons),
+                    disable_web_page_preview=disable_webpage_preview,
+                    parse_mode="markdown"
+                )
+            else:
+                await msg.edit_text(
+                    caption,
+                    disable_web_page_preview=disable_webpage_preview,
+                    parse_mode="markdown"
+                )
+        else:
             position = await get_position(channel_id)
             buttons = await get_buttons(channel_id)
             if buttons:
@@ -56,12 +90,14 @@ async def modify(_, msg: Message):
                     disable_web_page_preview=disable_webpage_preview,
                     parse_mode="markdown"
                 )
+                
             else:
                 await msg.edit_text(
                     caption,
                     disable_web_page_preview=disable_webpage_preview,
                     parse_mode="markdown"
                 )
+                
         if sticker:
             await msg.reply_sticker(sticker, quote=False)
     except FloodWait as e:
