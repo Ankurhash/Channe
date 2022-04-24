@@ -30,7 +30,7 @@ async def modify(_, msg: Message):
     if edit_mode == 'media' and not msg.media:
         return
     try:
-        if REMOVE_WORD in caption:
+        if caption:
             position = await get_position(channel_id)
             buttons = await get_buttons(channel_id)
             if buttons:
@@ -38,14 +38,14 @@ async def modify(_, msg: Message):
             webpage_preview = await get_webpage_preview(channel_id)
             if position == 'above':
                 if msg.caption:
-                    caption = caption + '\n\n' + (msg.caption.markdown).replace(REMOVE_WORD , "")
+                    caption += '\n\n' + msg.caption.markdown.replace(REMOVE_WORD , "")
                 elif msg.text:
-                    caption = caption + '\n\n' + (msg.text.markdown).replace(REMOVE_WORD , "")
+                    caption += '\n\n' + msg.text.markdown.replace(REMOVE_WORD , "")
             elif position == 'below':
                 if msg.caption:
-                    caption = (msg.caption.markdown).replace(REMOVE_WORD , "") + '\n\n' + caption
+                    caption = msg.caption.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
                 elif msg.text:
-                    caption = (msg.text.markdown).replace(REMOVE_WORD , "") + '\n\n' + caption
+                    caption = msg.text.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
             if webpage_preview:
                 disable_webpage_preview = False
             else:
@@ -59,40 +59,7 @@ async def modify(_, msg: Message):
                 )
             else:
                 await msg.edit_text(
-                    caption = (msg.caption.markdown).replace(REMOVE_WORD , ""),
-                    disable_web_page_preview=disable_webpage_preview,
-                    parse_mode="markdown"
-                )
-        else:
-            position = await get_position(channel_id)
-            buttons = await get_buttons(channel_id)
-            if buttons:
-                buttons = await string_to_buttons(buttons)
-            webpage_preview = await get_webpage_preview(channel_id)
-            if position == 'above':
-                if msg.caption:
-                    caption += '\n\n' + msg.caption.markdown
-                elif msg.text:
-                    caption += '\n\n' + msg.text.markdown
-            elif position == 'below':
-                if msg.caption:
-                    caption = msg.caption.markdown.replace("@TRmoviesandseries" , "") + '\n\n' + caption
-                elif msg.text:
-                    caption = msg.text.markdown.replace("@TRmoviesandseries" , "") + '\n\n' + caption
-            if webpage_preview:
-                disable_webpage_preview = False
-            else:
-                disable_webpage_preview = True
-            if buttons:
-                await msg.edit_text(
-                    caption,
-                    reply_markup=InlineKeyboardMarkup(buttons),
-                    disable_web_page_preview=disable_webpage_preview,
-                    parse_mode="markdown"
-                )
-            else:
-                await msg.edit_text(
-                    caption,
+                    caption = msg.caption.markdown.replace(REMOVE_WORD , ""),
                     disable_web_page_preview=disable_webpage_preview,
                     parse_mode="markdown"
                 )
