@@ -39,13 +39,22 @@ async def modify(_, msg: Message):
             if position == 'above':
                 if msg.caption:
                     caption += '\n\n' + msg.caption.markdown.replace(REMOVE_WORD , "")
+                elif msg.caption:
+                    caption += '\n\n' + msg.caption.markdown
+                
                 elif msg.text:
                     caption += '\n\n' + msg.text.markdown.replace(REMOVE_WORD , "")
+                elif msg.text:
+                    caption += '\n\n' + msg.text.markdown
             elif position == 'below':
                 if msg.caption:
                     caption = msg.caption.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
+                elif msg.caption:
+                    caption = msg.caption.markdown + '\n\n' + caption
                 elif msg.text:
                     caption = msg.text.markdown.replace(REMOVE_WORD , "") + '\n\n' + caption
+                elif msg.text:
+                    caption = msg.text.markdown + '\n\n' + caption
             if webpage_preview:
                 disable_webpage_preview = False
             else:
