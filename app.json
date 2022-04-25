@@ -39,7 +39,7 @@
     },
     "REMOVE_WORD": {
       "description": "Fill which u want to remove from caption if not remove anything fill unique whivh not preset in caotion",
-      "required": true,
+      "required": false,
       "value": "@TRmoviesandseries"
     },
     "API_HASH": {
